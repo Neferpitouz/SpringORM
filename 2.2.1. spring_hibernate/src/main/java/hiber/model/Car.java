@@ -16,10 +16,6 @@ public class Car {
     @Column(name = "series")
     private int series;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User owner;
-
     public Car() {}
 
     public Car(String model, int series) {
@@ -41,7 +37,6 @@ public class Car {
                 "id=" + id +
                 ", model='" + model + '\'' +
                 ", series=" + series +
-                ", owner=" + owner +
                 '}';
     }
 
@@ -59,13 +54,5 @@ public class Car {
 
     public void setSeries(int series) {
         this.series = series;
-    }
-
-    public User getUser() {
-        return owner;
-    }
-
-    public void setUser(User user) {
-        this.owner = user;
     }
 }

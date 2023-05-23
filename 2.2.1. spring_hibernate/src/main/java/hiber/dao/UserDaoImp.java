@@ -18,7 +18,11 @@ public class UserDaoImp implements UserDao {
 
    @Override
    public void add(User user) {
-      sessionFactory.getCurrentSession().save(user);
+      sessionFactory.getCurrentSession().saveOrUpdate(user);
+      Car car = user.getCar();
+      if (car != null) {
+         sessionFactory.getCurrentSession().saveOrUpdate(car);
+      }
    }
 
    @Override
@@ -28,12 +32,6 @@ public class UserDaoImp implements UserDao {
       return query.getResultList();
    }
 
-   @Override
-   public void addCar(User user, Car car) {
-      user.setCar(car);
-      car.setUser(user);
-      sessionFactory.getCurrentSession().saveOrUpdate(user);
-   }
    @Override
    public List<Car> listCars() {
       TypedQuery<Car> query= (TypedQuery<Car>) sessionFactory.getCurrentSession().createQuery("from Car");

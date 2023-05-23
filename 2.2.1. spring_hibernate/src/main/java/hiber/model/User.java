@@ -1,6 +1,5 @@
 package hiber.model;
 
-
 import jakarta.persistence.*;
 
 @Entity
@@ -20,11 +19,20 @@ public class User {
    @Column(name = "email")
    private String email;
 
-   @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
+   @OneToOne
+   @JoinColumn(name = "car_id") // Здесь указывается имя столбца для связи с таблицей "cars"
    private Car car;
 
+   public Car getCar() {
+      return car;
+   }
+
+   public void setCar(Car car) {
+      this.car = car;
+   }
+
    public User() {}
-   
+
    public User(String firstName, String lastName, String email) {
       this.firstName = firstName;
       this.lastName = lastName;
@@ -70,13 +78,5 @@ public class User {
               ", firstName='" + firstName + '\'' +
               ", lastName='" + lastName + '\'' +
               ", email='" + email;
-   }
-
-   public Car getCar() {
-      return car;
-   }
-
-   public void setCar(Car car) {
-      this.car = car;
    }
 }

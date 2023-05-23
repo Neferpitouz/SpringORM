@@ -9,9 +9,6 @@ import java.util.List;
 public interface UserService {
     void add(User user);
 
-    @Transactional
-    void addCar(User user, Car car);
-
     @Transactional(readOnly = true)
     List<Car> carsList();
 
@@ -19,4 +16,6 @@ public interface UserService {
     User getUserByModelSeries(String carModel, int carSeries);
 
     List<User> listUsers();
+
+
 }

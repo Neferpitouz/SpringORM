@@ -11,8 +11,8 @@ import java.util.List;
 
 public class MainApp {
    public static void main(String[] args) throws SQLException {
-      AnnotationConfigApplicationContext context = 
-            new AnnotationConfigApplicationContext(AppConfig.class);
+      AnnotationConfigApplicationContext context =
+              new AnnotationConfigApplicationContext(AppConfig.class);
 
       UserService userService = context.getBean(UserService.class);
 
@@ -26,18 +26,27 @@ public class MainApp {
          System.out.println(user);
       }
 
-      userService.addCar(new User("Test1","Test1_1", "test@gmail.com"),
-              new Car("Testla", 771));
-      userService.addCar(new User("Test2","Test2_1", "test2@gmail.com"),
-              new Car("Testla2", 772));
-      userService.addCar(new User("Test3","Test3_1", "test3@gmail.com"),
-              new Car("Testla3", 773));
+      User user1 = new User("Test1", "Test1_1", "test@gmail.com");
+      Car car1 = new Car("Testla", 771);
+      user1.setCar(car1);
+      userService.add(user1);
+
+      User user2 = new User("Test2", "Test2_1", "test2@gmail.com");
+      Car car2 = new Car("Testla2", 772);
+      user2.setCar(car2);
+      userService.add(user2);
+
+      User user3 = new User("Test3", "Test3_1", "test3@gmail.com");
+      Car car3 = new Car("Testla3", 773);
+      user3.setCar(car3);
+      userService.add(user3);
+
       List<Car> cars = userService.carsList();
       for (Car car : cars) {
          System.out.println(car);
       }
 
-      System.out.println(userService.getUserByModelSeries("Testla", 771));
+      System.out.println("Owner of Testla 771 is " + userService.getUserByModelSeries("Testla", 771));
 
       context.close();
    }
